@@ -251,7 +251,8 @@ if generate:
         if missing:
             st.error("Missing video(s) in `assets/`: " + ", ".join(f"`{m}`" for m in missing))
         else:
-            st.success("Render complete.")if scene_env == "Hotel":
+            st.success("Render complete.")
+            if scene_env == "Hotel":
     st.markdown("**Hotel Scene**")
     st.markdown("<div class='video-card'>", unsafe_allow_html=True)
     play_video(hotel_path)
@@ -266,6 +267,7 @@ else:
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
 
 
 
