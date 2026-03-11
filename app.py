@@ -232,7 +232,7 @@ amazon_url = st.text_input(
     "Amazon Product URL",
     placeholder="Paste an Amazon product URL…",
 )
-scene_env = st.selectbox("Scene Environment", ["Hotel", "Beach"], index=0)
+ scene_env = st.selectbox("Scene Environment", ["Hotel", "Beach"], index=0)
 generate = st.button("Generate", use_container_width=True)
 
 st.divider()
@@ -251,30 +251,21 @@ if generate:
         if missing:
             st.error("Missing video(s) in `assets/`: " + ", ".join(f"`{m}`" for m in missing))
         else:
-            st.success("Render complete.")
-            v1, v2 = st.columns(2, gap="medium")
-            with v1:
-                st.markdown(
-                    "**Hotel**"
-                    + ("  <span class='gold'>(selected)</span>" if scene_env == "Hotel" else ""),
-                    unsafe_allow_html=True,
-                )
-                st.markdown("<div class='video-card'>", unsafe_allow_html=True)
-                play_video(hotel_path)
-                st.markdown("</div>", unsafe_allow_html=True)
-            with v2:
-                st.markdown(
-                    "**Beach**"
-                    + ("  <span class='gold'>(selected)</span>" if scene_env == "Beach" else ""),
-                    unsafe_allow_html=True,
-                )
-                st.markdown("<div class='video-card'>", unsafe_allow_html=True)
-                play_video(beach_path)
-                st.markdown("</div>", unsafe_allow_html=True)
+            st.success("Render complete.")if scene_env == "Hotel":
+    st.markdown("**Hotel Scene**")
+    st.markdown("<div class='video-card'>", unsafe_allow_html=True)
+    play_video(hotel_path)
+    st.markdown("</div>", unsafe_allow_html=True)
+else:
+    st.markdown("**Beach Scene**")
+    st.markdown("<div class='video-card'>", unsafe_allow_html=True)
+    play_video(beach_path)
+    st.markdown("</div>", unsafe_allow_html=True))
     else:
         st.info(
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
 
 
