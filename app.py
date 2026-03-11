@@ -232,7 +232,7 @@ amazon_url = st.text_input(
     "Amazon Product URL",
     placeholder="Paste an Amazon product URL…",
 )
- scene_env = st.selectbox("Scene Environment", ["Hotel", "Beach"], index=0)
+scene_env = st.selectbox("Scene Environment", ["Hotel", "Beach"], index=0)
 generate = st.button("Generate", use_container_width=True)
 
 st.divider()
@@ -266,6 +266,7 @@ else:
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
 
 
 
