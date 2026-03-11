@@ -260,12 +260,13 @@ else:
     st.markdown("**Beach Scene**")
     st.markdown("<div class='video-card'>", unsafe_allow_html=True)
     play_video(beach_path)
-    st.markdown("</div>", unsafe_allow_html=True))
+    st.markdown("</div>", unsafe_allow_html=True)
     else:
         st.info(
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
 
 
 
