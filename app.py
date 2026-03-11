@@ -4,7 +4,7 @@ from pathlib import Path
 import streamlit as st
 
 
-ASSETS_DIR = Path(__file__).parent /
+ASSETS_DIR = Path(__file__).parent
 
 # The Hook: link known Amazon URL to assets/ files
 PRODUCT_ASSETS: dict[str, dict[str, Path]] = {
@@ -276,4 +276,5 @@ if generate:
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
 
