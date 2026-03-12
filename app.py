@@ -17,7 +17,6 @@ PRODUCT_ASSETS: dict[str, dict[str, Path]] = {
         "Home": ASSETS_DIR / "creatine_home_final.mp4",
     },
 }
-}
 
 AGENTIC_LOG_LINES = [
     "Authenticating with Amazon API...",
@@ -272,6 +271,7 @@ if generate:
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
 
 
 
