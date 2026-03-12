@@ -11,7 +11,12 @@ PRODUCT_ASSETS: dict[str, dict[str, Path]] = {
     "https://www.amazon.ca/Jutqut-Matte-lipstick-pen-01/dp/B0GFCXQSKD": {
         "Hotel": ASSETS_DIR / "lipstick_hotel_final.mp4",
         "Beach": ASSETS_DIR / "lipstick_beach_final.mp4",
-    }
+    },
+    "https://www.amazon.ca/dp/B0GGYX4STX": {
+        "Gym": ASSETS_DIR / "creatine_gym_final.mp4",
+        "Home": ASSETS_DIR / "creatine_home_final.mp4",
+    },
+}
 }
 
 AGENTIC_LOG_LINES = [
@@ -267,6 +272,7 @@ if generate:
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
 
 
 
