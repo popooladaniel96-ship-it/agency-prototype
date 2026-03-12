@@ -252,4 +252,3 @@ if generate:
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
-```
