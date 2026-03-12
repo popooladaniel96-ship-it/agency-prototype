@@ -3,10 +3,8 @@ from pathlib import Path
 
 import streamlit as st
 
-
 ASSETS_DIR = Path(__file__).parent
 
-# The Hook: link known Amazon URL to assets/ files
 PRODUCT_ASSETS: dict[str, dict[str, Path]] = {
     "https://www.amazon.ca/Jutqut-Matte-lipstick-pen-01/dp/B0GFCXQSKD": {
         "Hotel": ASSETS_DIR / "lipstick_hotel_final.mp4",
@@ -48,13 +46,11 @@ html, body, [class*="css"]{
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif !important;
 }
 
-/* App background */
 .stApp{
   background: var(--bg);
   color: var(--text);
 }
 
-/* Premium panels */
 div[data-testid="stVerticalBlockBorderWrapper"]{
   background: linear-gradient(180deg, rgba(14,15,22,0.92), rgba(10,10,15,0.92));
   border: 1px solid rgba(201,168,76,0.18);
@@ -62,12 +58,10 @@ div[data-testid="stVerticalBlockBorderWrapper"]{
   padding: 18px 18px 10px 18px;
 }
 
-/* Subtle gold dividers */
 hr{
   border-top: 1px solid rgba(201,168,76,0.18) !important;
 }
 
-/* Inputs (sleek, with gold focus border) */
 input, textarea, div[data-baseweb="select"] > div{
   background: rgba(14,15,22,0.85) !important;
   border: 1px solid rgba(201,168,76,0.20) !important;
@@ -82,7 +76,6 @@ input:focus, textarea:focus{
   box-shadow: 0 0 0 3px rgba(201,168,76,0.14) !important;
 }
 
-/* Buttons */
 div.stButton > button{
   background: var(--gold) !important;
   color: #0A0A0F !important;
@@ -97,7 +90,6 @@ div.stButton > button:hover{
   box-shadow: 0 0 0 3px rgba(201,168,76,0.18);
 }
 
-/* Subtle labels */
 label, .stMarkdown, p, li{
   color: var(--text);
 }
@@ -108,7 +100,6 @@ label, .stMarkdown, p, li{
   color: var(--gold);
 }
 
-/* Header */
 .agency-header{
   display: flex;
   justify-content: center;
@@ -140,7 +131,6 @@ label, .stMarkdown, p, li{
   font-size: 0.95rem;
 }
 
-/* Terminal log */
 .terminal{
   background: rgba(8,8,12,0.80);
   border: 1px solid rgba(201,168,76,0.20);
@@ -156,7 +146,6 @@ label, .stMarkdown, p, li{
   white-space: pre-wrap;
 }
 
-/* Video cards */
 .video-card{
   border: 1px solid rgba(201,168,76,0.18);
   background: rgba(14,15,22,0.72);
@@ -174,8 +163,6 @@ def run_agentic_log() -> None:
     log_box = st.container()
     placeholder = log_box.empty()
     rendered: list[str] = []
-
-    # 10 seconds total, 5 lines -> 2 seconds each
     for line in AGENTIC_LOG_LINES:
         rendered.append(f"> {line}")
         placeholder.markdown(
@@ -188,7 +175,6 @@ def run_agentic_log() -> None:
 
 
 def play_video(path: Path) -> None:
-    # Use st.video() as requested; attempt autoplay where supported.
     try:
         st.video(str(path), autoplay=True)
     except TypeError:
@@ -198,7 +184,6 @@ def play_video(path: Path) -> None:
 def resolve_asset_path(requested: Path) -> Path:
     if requested.exists():
         return requested
-    # Common Windows download quirk: double extension (e.g., .mp4.mp4)
     if requested.suffix.lower() == ".mp4":
         double_ext = requested.with_name(requested.name + ".mp4")
         if double_ext.exists():
@@ -236,50 +221,35 @@ amazon_url = st.text_input(
     "Amazon Product URL",
     placeholder="Paste an Amazon product URL…",
 )
-scene_env = st.selectbox("Scene Environment", ["Hotel", "Beach"], index=0)
+scene_env = st.selectbox("Scene Environment", ["Hotel", "Beach", "Gym", "Home"], index=0)
 generate = st.button("Generate", use_container_width=True)
 
 st.divider()
 st.markdown("### Output")
-st.markdown("<div class='muted'>Progress + renders (Hotel & Beach).</div>", unsafe_allow_html=True)
+st.markdown("<div class='muted'>Progress + renders.</div>", unsafe_allow_html=True)
 st.divider()
 
 if generate:
-    if amazon_url in PRODUCT_ASSETS:
+    stripped_url = amazon_url.strip()
+    if stripped_url in PRODUCT_ASSETS:
         run_agentic_log()
-
-        assets = PRODUCT_ASSETS[amazon_url]
-keys = list(assets.keys())
-hotel_path = resolve_asset_path(assets[keys[0]])
-beach_path = resolve_asset_path(assets[keys[1]])Beach"])
-
-        missing = [p.name for p in [hotel_path, beach_path] if not p.exists()]
+        assets = PRODUCT_ASSETS[stripped_url]
+        keys = list(assets.keys())
+        first_path = resolve_asset_path(assets[keys[0]])
+        second_path = resolve_asset_path(assets[keys[1]])
+        missing = [p.name for p in [first_path, second_path] if not p.exists()]
         if missing:
-            st.error("Missing video(s) in `assets/`: " + ", ".join(f"`{m}`" for m in missing))
+            st.error("Missing video(s): " + ", ".join(f"`{m}`" for m in missing))
         else:
             st.success("Render complete.")
-            if scene_env == "Hotel":
-                st.markdown("**Hotel Scene**")
-                st.markdown("<div class='video-card'>", unsafe_allow_html=True)
-                play_video(hotel_path)
-                st.markdown("</div>", unsafe_allow_html=True)
-            else:
-                st.markdown("**Beach Scene**")
-                st.markdown("<div class='video-card'>", unsafe_allow_html=True)
-                play_video(beach_path)
-                st.markdown("</div>", unsafe_allow_html=True)
+            selected_path = resolve_asset_path(assets.get(scene_env, assets[keys[0]]))
+            st.markdown(f"**{scene_env} Scene**")
+            st.markdown("<div class='video-card'>", unsafe_allow_html=True)
+            play_video(selected_path)
+            st.markdown("</div>", unsafe_allow_html=True)
     else:
         st.info(
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
-
-
-
-
-
-
-
-
-
-
+```
