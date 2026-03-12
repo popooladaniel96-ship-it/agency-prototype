@@ -29,65 +29,76 @@ def inject_brand_css() -> None:
     st.markdown(
         """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 :root{
-  --bg: #0A0A0F;
-  --panel: #0E0F16;
-  --panel2: #0B0C12;
-  --text: #EAEAF2;
-  --muted: rgba(234,234,242,0.68);
-  --gold: #C9A84C;
-  --goldSoft: rgba(201,168,76,0.28);
-  --border: rgba(201,168,76,0.22);
+  --bg: #080810;
+  --panel: #0E0F1A;
+  --text: #F0F0FA;
+  --muted: rgba(240,240,250,0.55);
+  --gold: #D4A853;
+  --goldSoft: rgba(212,168,83,0.15);
+  --border: rgba(212,168,83,0.18);
 }
 
 html, body, [class*="css"]{
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
 }
 
 .stApp{
-  background: var(--bg);
+  background: radial-gradient(ellipse at top, #0D0D1A 0%, #080810 60%);
   color: var(--text);
 }
 
 div[data-testid="stVerticalBlockBorderWrapper"]{
-  background: linear-gradient(180deg, rgba(14,15,22,0.92), rgba(10,10,15,0.92));
-  border: 1px solid rgba(201,168,76,0.18);
-  border-radius: 16px;
-  padding: 18px 18px 10px 18px;
+  background: rgba(14,15,26,0.85);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
 }
 
 hr{
-  border-top: 1px solid rgba(201,168,76,0.18) !important;
+  border-top: 1px solid rgba(212,168,83,0.12) !important;
 }
 
 input, textarea, div[data-baseweb="select"] > div{
-  background: rgba(14,15,22,0.85) !important;
-  border: 1px solid rgba(201,168,76,0.20) !important;
-  border-radius: 12px !important;
+  background: rgba(14,15,26,0.90) !important;
+  border: 1px solid rgba(212,168,83,0.22) !important;
+  border-radius: 14px !important;
   color: var(--text) !important;
-  box-shadow: none !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.95rem !important;
 }
 
 input:focus, textarea:focus{
-  outline: none !important;
-  border: 1px solid rgba(201,168,76,0.70) !important;
-  box-shadow: 0 0 0 3px rgba(201,168,76,0.14) !important;
+  border: 1px solid rgba(212,168,83,0.80) !important;
+  box-shadow: 0 0 0 3px rgba(212,168,83,0.12) !important;
 }
 
 div.stButton > button{
-  background: var(--gold) !important;
-  color: #0A0A0F !important;
-  border: 1px solid rgba(0,0,0,0.40) !important;
-  border-radius: 14px !important;
+  background: linear-gradient(135deg, #D4A853, #C9943A) !important;
+  color: #080810 !important;
+  border: none !important;
+  border-radius: 16px !important;
+  font-family: 'Syne', sans-serif !important;
   font-weight: 700 !important;
-  padding: 0.85rem 1.05rem !important;
-  letter-spacing: 0.3px;
+  font-size: 1rem !important;
+  padding: 0.9rem 1.2rem !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  transition: all 0.2s ease !important;
 }
+
 div.stButton > button:hover{
-  filter: brightness(1.02);
-  box-shadow: 0 0 0 3px rgba(201,168,76,0.18);
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 25px rgba(212,168,83,0.30) !important;
+}
+
+h1, h2, h3{
+  font-family: 'Syne', sans-serif !important;
+  color: var(--text) !important;
+  letter-spacing: 0.5px !important;
 }
 
 label, .stMarkdown, p, li{
@@ -95,6 +106,7 @@ label, .stMarkdown, p, li{
 }
 .muted{
   color: var(--muted);
+  font-size: 0.88rem;
 }
 .gold{
   color: var(--gold);
@@ -104,53 +116,61 @@ label, .stMarkdown, p, li{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0.25rem 0 0.75rem 0;
+  padding: 1.5rem 0 0.5rem 0;
 }
 .agency-mark{
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.1rem;
+  gap: 0.85rem;
+  padding: 0.85rem 1.6rem;
   border-radius: 999px;
-  border: 1px solid rgba(201,168,76,0.22);
-  background: linear-gradient(180deg, rgba(14,15,22,0.92), rgba(10,10,15,0.92));
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  border: 1px solid rgba(212,168,83,0.25);
+  background: linear-gradient(135deg, rgba(14,15,26,0.95), rgba(8,8,16,0.95));
+  box-shadow: 0 0 40px rgba(212,168,83,0.08), 0 10px 30px rgba(0,0,0,0.40);
 }
 .agency-dot{
   width: 10px;
   height: 10px;
   border-radius: 999px;
   background: var(--gold);
-  box-shadow: 0 0 0 4px rgba(201,168,76,0.12);
+  box-shadow: 0 0 12px rgba(212,168,83,0.60);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{ box-shadow: 0 0 0 0 rgba(212,168,83,0.4); }
+  70%{ box-shadow: 0 0 0 8px rgba(212,168,83,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(212,168,83,0); }
 }
 .agency-title{
   color: var(--gold);
+  font-family: 'Syne', sans-serif !important;
   font-weight: 800;
-  letter-spacing: 2.2px;
-  font-size: 0.95rem;
+  letter-spacing: 3px;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
 .terminal{
-  background: rgba(8,8,12,0.80);
-  border: 1px solid rgba(201,168,76,0.20);
-  border-radius: 14px;
-  padding: 14px 14px 10px 14px;
+  background: rgba(5,5,10,0.90);
+  border: 1px solid rgba(212,168,83,0.18);
+  border-radius: 16px;
+  padding: 16px;
 }
 .terminal pre{
   margin: 0;
   color: var(--gold);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.92rem;
-  line-height: 1.55;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.88rem;
+  line-height: 1.7;
   white-space: pre-wrap;
 }
 
 .video-card{
-  border: 1px solid rgba(201,168,76,0.18);
-  background: rgba(14,15,22,0.72);
-  border-radius: 16px;
-  padding: 12px;
+  border: 1px solid rgba(212,168,83,0.15);
+  background: rgba(14,15,26,0.60);
+  border-radius: 20px;
+  padding: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.30);
 }
 
 </style>
@@ -252,3 +272,4 @@ if generate:
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
