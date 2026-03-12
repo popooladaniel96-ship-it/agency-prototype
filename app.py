@@ -248,8 +248,10 @@ if generate:
     if amazon_url in PRODUCT_ASSETS:
         run_agentic_log()
 
-        hotel_path = resolve_asset_path(PRODUCT_ASSETS[amazon_url]["Hotel"])
-        beach_path = resolve_asset_path(PRODUCT_ASSETS[amazon_url]["Beach"])
+        assets = PRODUCT_ASSETS[amazon_url]
+keys = list(assets.keys())
+hotel_path = resolve_asset_path(assets[keys[0]])
+beach_path = resolve_asset_path(assets[keys[1]])Beach"])
 
         missing = [p.name for p in [hotel_path, beach_path] if not p.exists()]
         if missing:
@@ -271,6 +273,7 @@ if generate:
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
 
 
 
