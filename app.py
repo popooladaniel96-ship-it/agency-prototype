@@ -241,7 +241,12 @@ amazon_url = st.text_input(
     "Amazon Product URL",
     placeholder="Paste an Amazon product URL…",
 )
-scene_env = st.selectbox("Scene Environment", ["Hotel", "Beach", "Gym", "Home"], index=0)
+if amazon_url.strip() in PRODUCT_ASSETS:
+    available_envs = list(PRODUCT_ASSETS[amazon_url.strip()].keys())
+else:
+    available_envs = ["Hotel", "Beach", "Gym", "Home"]
+
+scene_env = st.selectbox("Scene Environment", available_envs, index=0)
 generate = st.button("Generate", use_container_width=True)
 
 st.divider()
@@ -272,4 +277,5 @@ if generate:
             "New Product Detected. Queuing for background removal and scene synthesis. "
             "Estimated time: 8 minutes."
         )
+
 
